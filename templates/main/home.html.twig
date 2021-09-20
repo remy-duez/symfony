@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Welcome to the Sblog{% endblock %}
+
+{% block body %}
+    <div class="posts_container">
+    {% for post in posts %}
+        <div class="post_card">
+            <h3 class="post_title">{{post.title}}</h3>
+            <span class="post_author">{{post.author.email}}</span>
+            <p class="post_content">{{post.content |u.truncate(150,'...', true) }}</p>
+        </div>
+    {% endfor %}
+    </div>
+{% endblock %}
