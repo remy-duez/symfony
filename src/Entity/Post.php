@@ -48,7 +48,7 @@ class Post
     private $category;
 
     /**
-     * @ORM\ManyToOne(targetEntity=user::class, inversedBy="posts")
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="posts")
      * @ORM\JoinColumn(nullable=false)
      */
     private $author;

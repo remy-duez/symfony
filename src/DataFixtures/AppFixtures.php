@@ -37,8 +37,8 @@ class AppFixtures extends Fixture
             for($j=0; $j<=10; $j++){
                 $post = new Post;
                 $post->setTitle($faker->words(3, true))
-                ->setContent($faker->text(150))
-                ->setCreatedAt($faker->dateTimeBetween("-6 monts", "now"))
+                ->setContent($faker->text(1500))
+                ->setCreatedAt($faker->dateTimeBetween("-6 months", "now"))
                 ->setCategory($category)
                 ->setAuthor($user);
                 $manager->persist($post);
