@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Register{% endblock %}
+
+{% block body %}
+
+{# {% for label, messages in app.flashes %}
+    {% for message in messages %}
+        <div class="flash-message">{{message}}</div>
+    {% endfor %}
+{% endfor %} #}
+
+    <div class="form-group">
+        <h1 class="title">Welcome to the Sblog</h1>
+        <h2 class="form-label mt-4">Please Register</h2>
+
+        <div autocomplete="false">
+            {{ form_start(registrationForm) }}
+                {{ form_row(registrationForm.email) }}
+                {{ form_row(registrationForm.plainPassword)}}
+                <div class="d-grid gap-2">
+                    <button  type="submit" class="btn btn-lng btn-secondary mt-2 ">Register</button>
+                </div>
+            {{ form_end(registrationForm) }}
+        </div>
+    </div>
+{% endblock %}
