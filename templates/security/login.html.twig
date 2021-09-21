@@ -3,7 +3,7 @@
 {% block title %}Log in!{% endblock %}
 
 {% block body %}
-<form method="post">
+<form method="post" autocomplete="false">
     {% if error %}
         <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
     {% endif %}
@@ -35,8 +35,8 @@
         </div>
     #}
 
-    <button class="btn btn-lg btn-primary" type="submit">
-        Sign in
-    </button>
+    <div class="d-grid gap-2">
+        <button  type="submit" class="btn btn-lng btn-secondary mt-2 ">Sign In</button>
+    </div>
 </form>
 {% endblock %}
