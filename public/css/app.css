@@ -1,5 +1,28 @@
 body{
-    background-image: url("../images/dark_bg.jpg");
+    background-image: url("../images/clear-bg.jpg");
     background-repeat: no-repeat;
-    height: 100vh;
+    background-size: cover;
+    background-position: center center;
+}
+
+.dropdown-menu{
+    padding: 0;
+}
+
+.dropdown-menu a:hover{
+    background-color: rgba(0,0,0,.6);
+}
+
+.clickable-card{
+    text-decoration: none;
+}
+
+.clickable-card:hover{
+    transform: translateY(-5px);
+    transition: 0.5s ease-in;
+
+}
+
+.card-title{
+    height:58px;
 }

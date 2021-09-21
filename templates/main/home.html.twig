@@ -3,13 +3,20 @@
 {% block title %}Welcome to the Sblog{% endblock %}
 
 {% block body %}
-    {% for post in posts %}
-    <div class="card border-dark mb-3" style="max-width: 20rem;">
-        <div class="card-header">{{post.author.email}}</div>
-        <div class="card-body">
-            <h4 class="card-title">{{post.title}}</h4>
-            <p class="card-text">{{post.content |u.truncate(150,'...', true) }}</p>
-        </div>
+    <div class="posts-container d-flex flex-wrap justify-content-evenly">
+        {% for post in posts %}
+            <a href="#" class="clickable-card mb-3">
+                <div class="card border-dark" style="max-width: 20rem;">
+                    <div class="card-header d-flex justify-content-between">
+                        <small class="text-muted">{{post.author.email}}</small>
+                        <span class="badge bg-info">{{post.category.name}}</span>
+                    </div>
+                    <div class="card-body">
+                        <h4 class="card-title">{{post.title}}</h4>
+                        <p class="card-text">{{post.content |u.truncate(150,'...', true) }}</p>
+                    </div>
+                </div> 
+            </a>
+        {% endfor %}
     </div>
-    {% endfor %}
 {% endblock %}

@@ -39,8 +39,7 @@
             <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Categories</a>
             <div class="dropdown-menu">
                 {% for category in categories.findAll() %}
-                <div>
-                    <a class="dropdown-item list-group-item d-flex justify-content-between align-items-center" href="#">{{category.name}} <small class=" badge bg-primary rounded-pill">{{category.getPost()|length}}</small></a>
+                    <a class="dropdown-item --bs-pink list-group-item d-flex justify-content-between align-items-center" href="#">{{category.name}} &nbsp <small class=" badge bg-primary rounded-pill">{{category.getPost()|length}}</small></a>
                 {% endfor %}
             </div>
             </li>
@@ -51,7 +50,7 @@
 
 
     <body>
-        <div class="container-fluid d-flex flex-row justify-content-around align-items-center flex-wrap">
+        <div class="container-fluid">
             {% block body %}{% endblock %}
         </div>
     </body>
