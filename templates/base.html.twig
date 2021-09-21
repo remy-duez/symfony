@@ -2,18 +2,58 @@
 <html>
     <head>
         <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>{% block title %}Symfony blog{% endblock %}</title>
         {# Run `composer require symfony/webpack-encore-bundle`
            and uncomment the following Encore helpers to start using Symfony UX #}
         {% block stylesheets %}
-            {#{{ encore_entry_link_tags('app') }}#}
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/5.1.1/quartz/bootstrap.min.css">
+            <link rel="stylesheet" href="{{asset("/css/app.css")}}">
+        {% endblock %}
+        {% block javascripts %}
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
         {% endblock %}
 
-        {% block javascripts %}
-            {#{{ encore_entry_script_tags('app') }}#}
-        {% endblock %}
     </head>
+
+    
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-3">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">Sblog</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarColor02">
+        <ul class="navbar-nav me-auto">
+            <li class="nav-item">
+            <a class="nav-link active" href="#">Home
+                <span class="visually-hidden">(current)</span>
+            </a>
+            </li>
+            <li class="nav-item">
+            <a class="nav-link" href="#">Articles</a>
+            </li>
+            <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Categories</a>
+            <div class="dropdown-menu">
+                {% for category in categories.findAll() %}
+                <div>
+                    <a class="dropdown-item list-group-item d-flex justify-content-between align-items-center" href="#">{{category.name}} <small class=" badge bg-primary rounded-pill">{{category.getPost()|length}}</small></a>
+                {% endfor %}
+            </div>
+            </li>
+        </ul>
+        </div>
+    </div>
+    </nav>
+
+
     <body>
-        {% block body %}{% endblock %}
+        <div class="container-fluid d-flex flex-row justify-content-around align-items-center flex-wrap">
+            {% block body %}{% endblock %}
+        </div>
     </body>
+        
 </html>
