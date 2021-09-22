@@ -3,9 +3,9 @@
 {% block title %}Welcome to the Sblog{% endblock %}
 
 {% block body %}
-    <div class="posts-container d-flex flex-wrap justify-content-evenly">
+    <div class="container-fluid d-flex flex-wrap justify-content-evenly">
         {% for post in posts %}
-            <a href="#" class="clickable-card mb-3">
+            <a href="{{path('show_post', {'id': post.id})}}" class="clickable-card mb-3">
                 <div class="card border-dark" style="max-width: 20rem;">
                     <div class="card-header d-flex justify-content-between">
                         <small class="text-muted">{{post.author.email}}</small>
@@ -13,7 +13,12 @@
                     </div>
                     <div class="card-body">
                         <h4 class="card-title">{{post.title}}</h4>
-                        <p class="card-text">{{post.content |u.truncate(150,'...', true) }}</p>
+                        {% if post.image is empty %}
+                        <img class="img-fluid rounded mb-2" src="https://www.placecage.com/g/800/600" alt="placeholder image">
+                        </svg>
+                        {% else %}
+                            <img src="{{post.image}}" alt="{{post.image}}">
+                        {% endif %}
                     </div>
                 </div> 
             </a>

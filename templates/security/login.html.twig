@@ -3,6 +3,7 @@
 {% block title %}Log in!{% endblock %}
 
 {% block body %}
+<div class="container-fluid col-md-6">
 <form method="post" autocomplete="false">
     {% if error %}
         <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
@@ -39,4 +40,5 @@
         <button  type="submit" class="btn btn-lng btn-secondary mt-2 ">Sign In</button>
     </div>
 </form>
+</div>
 {% endblock %}
