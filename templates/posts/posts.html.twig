@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello PostsController!{% endblock %}
+
+{% block body %}
+    <div class="container-fluid d-flex flex-wrap justify-content-evenly">
+        {% for post in posts %}
+            <a href="{{path('show_post', {'id': post.id})}}" class="clickable-card mb-3">
+                <div class="card border-dark" style="max-width: 20rem;">
+                    <div class="card-header d-flex justify-content-between">
+                        <small class="text-muted">{{post.author.email}}</small>
+                        <span class="badge bg-info">{{post.category.name}}</span>
+                    </div>
+                    <div class="card-body">
+                        <h4 class="card-title">{{post.title}}</h4>
+                        {% if post.image is empty %}
+                        <img class="img-fluid rounded mb-2" src="https://www.placecage.com/g/800/600" alt="placeholder image">
+                        </svg>
+                        {% else %}
+                            <img src="{{post.image}}" alt="{{post.image}}">
+                        {% endif %}
+                    </div>
+                </div> 
+            </a>
+        {% endfor %}
+    </div>
+    <div class="container-fluid d-flex justify-content-center">
+        {{ knp_pagination_render(posts, 'pagination.html.twig') }}
+    </div>
+{% endblock %}
