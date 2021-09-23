@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7b4674eef52463cb2ffec1a94cf59443",
+    "content-hash": "1005cb03a9151c03dda8d83619fbd101",
     "packages": [
         {
             "name": "composer/package-versions-deprecated",
@@ -2626,6 +2626,64 @@
                 "source": "https://github.com/php-fig/log/tree/1.1.4"
             },
             "time": "2021-05-03T11:20:27+00:00"
+        },
+        {
+            "name": "rybakit/twig-deferred-extension",
+            "version": "v3.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/rybakit/twig-deferred-extension.git",
+                "reference": "9978957bd018554e656bcdf045ab00fb7b134dc9"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/rybakit/twig-deferred-extension/zipball/9978957bd018554e656bcdf045ab00fb7b134dc9",
+                "reference": "9978957bd018554e656bcdf045ab00fb7b134dc9",
+                "shasum": ""
+            },
+            "require": {
+                "twig/twig": "^3.0"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^2.16",
+                "phpunit/phpunit": "^6.1|^7.0|^8.0|^9.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Twig\\DeferredExtension\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Eugene Leonovich",
+                    "email": "gen.work@gmail.com"
+                }
+            ],
+            "description": "An extension for Twig that allows to defer block rendering.",
+            "homepage": "https://github.com/rybakit/twig-deferred-extension",
+            "keywords": [
+                "defer",
+                "extension",
+                "lazy",
+                "override",
+                "twig"
+            ],
+            "support": {
+                "issues": "https://github.com/rybakit/twig-deferred-extension/issues",
+                "source": "https://github.com/rybakit/twig-deferred-extension/tree/v3.0.1"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/rybakit",
+                    "type": "github"
+                }
+            ],
+            "time": "2021-09-17T21:39:05+00:00"
         },
         {
             "name": "sensio/framework-extra-bundle",
