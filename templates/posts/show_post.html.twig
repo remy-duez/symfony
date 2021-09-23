@@ -3,7 +3,11 @@
 {% block title %}{{post.title}}{% endblock %}
 
 {% block body %}
-    <div class="container-fluid col-md-6 mb-3">
+{% for message in app.flashes('message') %}
+    <div class="alert alert-success alert-dismissible">{{message}}</div>
+    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+{% endfor %}
+    <div class="container-fluid col-md-10 mb-3">
         <article class="card border-dark">
             <div class="card-header d-flex justify-content-between">
                 <small class="text-muted">{{post.createdAt | date('m/d/y H:i')}} {{post.author.email}}</small>
@@ -26,15 +30,39 @@
                         <span>{{post.comments|length}}</span>
                     </div>
                     <div>
-                        {% if app.user and post.isLikedByUser(app.user) %}
-                            <i class="fa fa-thumbs-up" aria-hidden="true"></i>
-                        {% else %}
-                            <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
-                        {% endif %}
-                        <span>{{post.likes|length}}</span>
+                        <a href={{path('post_like', {'id' : post.id})}} class="js-like">
+                            {% if app.user and post.isLikedByUser(app.user) %}
+                                <i class="fa fa-thumbs-up" aria-hidden="true"></i>
+                            {% else %}
+                                <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
+                            {% endif %}
+                            <span class="js-likes">{{post.likes|length}}</span>
+                        </a>
                     </div>
                 </div>
             </div>
+            {% if post.comments is not empty  %}
+                <ul class="list-group list-group-flush">
+                {% for comment in post.comments %}
+                    <li class="list-group-item">
+                        <span class="text-muted">{{comment.author.getEmail()}}</span>
+                        <small class="test-muted">{{comment.createdAt|date('m/d/y H:i')}}</small>
+                        <p>{{comment.content}}</p>
+                    </li>
+                {% endfor %}
+                </ul>
+            {% endif %}
+            {% if app.user %}
+                {{ form_start(commentForm) }}
+                    {{form_errors(commentForm)}}
+                    <div class="container-fluid form-group">
+                        {{form_row(commentForm.content, {'label': 'Comment'})}}
+                    </div>
+                    <div class="d-grid gap-2">
+                        <button  type="submit" class="btn btn-lng btn-secondary mt-2 ">Comment</button>
+                    </div>
+                {{form_end(commentForm)}}
+            {% endif %}
         </article> 
     </div>
 {% endblock %}
