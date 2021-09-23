@@ -9,6 +9,7 @@
         {% block stylesheets %}
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/5.1.1/quartz/bootstrap.min.css">
             <link rel="stylesheet" href="{{asset("/css/app.css")}}">
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fork-awesome@1.2.0/css/fork-awesome.min.css" integrity="sha256-XoaMnoYC5TH6/+ihMEnospgm0J1PM/nioxbOUdnM8HY=" crossorigin="anonymous">
         {% endblock %}
         {% block javascripts %}
             <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
@@ -36,7 +37,7 @@
             <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Categories</a>
             <div class="dropdown-menu">
                 {% for category in categories.findAll() %}
-                    <a class="dropdown-item --bs-pink list-group-item d-flex justify-content-between align-items-center" href="#">{{category.name}} &nbsp <small class=" badge bg-primary rounded-pill">{{category.getPost()|length}}</small></a>
+                    <a class="dropdown-item --bs-pink list-group-item d-flex justify-content-between align-items-center" href="{{path('show_category', {'id': category.id})}}">{{category.name}} &nbsp <small class=" badge bg-primary rounded-pill">{{category.getPost()|length}}</small></a>
                 {% endfor %}
             </div>
             </li>

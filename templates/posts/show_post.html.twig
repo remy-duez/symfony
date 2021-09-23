@@ -20,6 +20,20 @@
                     {% endif %}
                 </div>
                 <p class="card-text">{{post.content}}</p>
+                <div class="container-fluid d-flex justify-content-between">
+                    <div>
+                        <i class="fa fa-comment-o" aria-hidden="true"></i>
+                        <span>{{post.comments|length}}</span>
+                    </div>
+                    <div>
+                        {% if app.user and post.isLikedByUser(app.user) %}
+                            <i class="fa fa-thumbs-up" aria-hidden="true"></i>
+                        {% else %}
+                            <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
+                        {% endif %}
+                        <span>{{post.likes|length}}</span>
+                    </div>
+                </div>
             </div>
         </article> 
     </div>
