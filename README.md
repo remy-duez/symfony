@@ -27,6 +27,11 @@ or
 
  php bin/console doctrine:database:create
 ```
+## You are now able to load the migrations
+
+```shell
+symfony console doctrine:migrations:migrate
+```
 
 ## Now that the database is created you can import the fixtures added to the project
 
