@@ -24,11 +24,24 @@ class PostRepository extends ServiceEntityRepository
      */
     public function findLastFour()
     {
+        
         return $this->createQueryBuilder('p')
             ->orderBy('p.createdAt', 'DESC')
             ->setMaxResults(4)
             ->getQuery()
             ->getResult()
         ;
+    }
+
+    public function findMostLiked()
+    {
+        return $this->createQueryBuilder('p')
+        ->select('count(l) AS HIDDEN nbrLikes', 'p')
+        ->leftJoin('p.likes', 'l')
+        ->orderBy('nbrLikes', 'DESC')
+        ->groupBy('p')
+        ->setMaxResults(4)
+        ->getQuery()
+        ->getResult();
     }
 }

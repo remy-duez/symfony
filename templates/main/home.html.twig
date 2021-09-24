@@ -3,7 +3,44 @@
 {% block title %}Welcome to the Sblog{% endblock %}
 
 {% block body %}
+    <h1 class="text-center">What's new ?</h1>
     <div class="container-fluid d-flex flex-wrap justify-content-evenly">
         {% include "post_list.html.twig" %}
     </div>
+    <h1 class="text-center">Most Liked Posts !</h1>
+    <div class="container-fluid d-flex flex-wrap justify-content-evenly">
+     {% for key, post in liked %}
+            <a href="{{path('show_post', {'id':post.id} )}}" class="clickable-card mb-3">
+                <div class="card border-dark" style="max-width: 20rem;">
+                    <div class="card-header d-flex justify-content-between">
+                        <small class="text-muted">{{post.author.email}}</small>
+                        <span class="badge bg-info">{{post.category.name}}</span>
+                    </div>
+                    <div class="card-body">
+                        <h4 class="card-title">{{post.title}}</h4>
+                        {% if post.image is empty %}
+                        <img class="img-fluid rounded mb-2" src="https://www.placecage.com/g/600/400" alt="placeholder image" >
+                        {% else %}
+                            <img src="{{vich_uploader_asset(post, 'imageFile')}}" alt="{{post.image}}" class='img-fluid rounded mb-2'>
+                        {% endif %}
+                        <div class="container-fluid d-flex justify-content-between">
+                            <div>
+                                <i class="fa fa-comment-o" aria-hidden="true"></i>
+                                <span>{{post.comments|length}}</span>
+                            </div>
+                            <div class="js-like">
+                                {% if app.user and post.isLikedByUser(app.user) %}
+                                    <i class="fa fa-thumbs-up" aria-hidden="true"></i>
+                                {% else %}
+                                    <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
+                                {% endif %}
+                                <span class="js-likes">{{post.likes|length}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div> 
+            </a>
+        {% endfor %}
+    </div>
+
 {% endblock %}
