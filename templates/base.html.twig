@@ -22,30 +22,45 @@
     
 
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-3">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="{{path("home")}}">Sblog</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-        </button>
+        <div class="container-fluid">
+            <a class="navbar-brand" href="{{path("home")}}">Sblog</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+            </button>
 
-        <div class="collapse navbar-collapse" id="navbarColor02">
-        <ul class="navbar-nav me-auto">
-            <li class="nav-item">
-            </li>
-            <li class="nav-item">
-            <a class="nav-link" href="{{path('posts')}}">Posts</a>
-            </li>
-            <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Categories</a>
-            <div class="dropdown-menu">
-                {% for category in categories.findAll() %}
-                    <a class="dropdown-item --bs-pink list-group-item d-flex justify-content-between align-items-center" href="{{path('show_category', {'id': category.id})}}">{{category.name}} &nbsp <small class=" badge bg-primary rounded-pill">{{category.getPost()|length}}</small></a>
-                {% endfor %}
+            <div class="collapse navbar-collapse" id="navbarColor02">
+            <ul class="navbar-nav me-auto">
+            {% if app.user %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{{path('app_logout')}}">Logout</a>
+                </li>
+            {% else %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{{path('app_login')}}">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{path('app_register')}}">Register</a>
+                </li>
+            {% endif %}
+            {% if app.user and is_granted('ROLE_ADMIN') %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{{path('admin')}}">Admin</a>
+                </li>
+            {% endif %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{{path('posts')}}">Posts</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Categories</a>
+                <div class="dropdown-menu">
+                    {% for category in categories.findAll() %}
+                        <a class="dropdown-item --bs-pink list-group-item d-flex justify-content-between align-items-center" href="{{path('show_category', {'id': category.id})}}">{{category.name}} &nbsp <small class=" badge bg-primary rounded-pill">{{category.getPost()|length}}</small></a>
+                    {% endfor %}
+                </div>
+                </li>
+            </ul>
             </div>
-            </li>
-        </ul>
         </div>
-    </div>
     </nav>
 
 

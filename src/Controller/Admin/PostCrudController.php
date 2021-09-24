@@ -3,8 +3,13 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Post;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
-
+use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
+use Vich\UploaderBundle\Form\Type\VichImageType;
 class PostCrudController extends AbstractCrudController
 {
     public static function getEntityFqcn(): string
@@ -12,14 +17,26 @@ class PostCrudController extends AbstractCrudController
         return Post::class;
     }
 
-    /*
+    
     public function configureFields(string $pageName): iterable
     {
         return [
-            IdField::new('id'),
             TextField::new('title'),
-            TextEditorField::new('description'),
+            TextareaField::new('content'),
+            AssociationField::new('category')->autocomplete(),
+            AssociationField::new('author')->hideonForm(),
+            TextField::new('imageFile')->setFormType(VichImageType::class),
+            ImageField::new('image')->setBasePath('uploads/post_images')->onlyOnIndex()
         ];
     }
-    */
+
+    public function configureCrud(Crud $crud): Crud
+    {
+        return $crud
+        ->setEntityLabelInSingular('Article')
+        ->setEntityLabelInPlural('Articles')
+        ->setDefaultSort(['createdAt' => 'DESC'])
+        ->setSearchFields(['title', 'content']);
+    }
+    
 }

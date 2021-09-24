@@ -9,10 +9,9 @@
                     <div class="card-body">
                         <h4 class="card-title">{{post.title}}</h4>
                         {% if post.image is empty %}
-                        <img class="img-fluid rounded mb-2" src="https://www.placecage.com/g/800/600" alt="placeholder image">
-                        </svg>
+                        <img class="img-fluid rounded mb-2" src="https://www.placecage.com/g/600/400" alt="placeholder image" >
                         {% else %}
-                            <img src="{{post.image}}" alt="{{post.image}}">
+                            <img src="{{vich_uploader_asset(post, 'imageFile')}}" alt="{{post.image}}" class='img-fluid rounded mb-2'>
                         {% endif %}
                         <div class="container-fluid d-flex justify-content-between">
                             <div>

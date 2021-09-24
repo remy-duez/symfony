@@ -7,22 +7,19 @@
     <div class="alert alert-success alert-dismissible">{{message}}</div>
     <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
 {% endfor %}
-    <div class="container-fluid col-md-10 mb-3">
+    <div class="container-fluid col-md-6 mb-3">
         <article class="card border-dark">
             <div class="card-header d-flex justify-content-between">
                 <small class="text-muted">{{post.createdAt | date('m/d/y H:i')}} {{post.author.email}}</small>
                 <span class="badge bg-info">{{post.category.name}}</span>
             </div>
             <div class="card-body">
-                <div>
                     <h4 class="card-title">{{post.title}}</h4>
                     {% if post.image is empty %}
-                        <img class="img-fluid rounded mb-2" src="https://www.placecage.com/g/800/600" alt="placeholder image">
-                        </svg>
+                        <img class="img-fluid rounded mb-2" src="https://www.placecage.com/g/600/400" alt="placeholder image" >
                     {% else %}
-                        <img src="{{post.image}}" alt="{{post.image}}">
+                        <img src="{{vich_uploader_asset(post, 'imageFile')}}" alt="{{post.image}}" class='img-fluid rounded mb-2'>
                     {% endif %}
-                </div>
                 <p class="card-text">{{post.content}}</p>
                 <div class="container-fluid d-flex justify-content-between">
                     <div>
