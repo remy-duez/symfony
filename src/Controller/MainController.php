@@ -15,8 +15,13 @@ class MainController extends AbstractController
      */
     public function index(PostRepository $postRepository): Response
     {
+        // we get the last four posts in order to display them
         $posts = $postRepository->findLastFour();
-        $most_liked = $postRepository->findMostLiked();
+
+        //we get the 4 most liked posts in order to display them
+        $most_liked = $postRepository->findFourMostLiked();
+
+        
         return $this->render('main/home.html.twig', [
             'posts' => $posts,
             'liked' => $most_liked

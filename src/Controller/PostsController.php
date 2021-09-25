@@ -24,6 +24,8 @@ class PostsController extends AbstractController
     public function index(Request $request, PaginatorInterface $paginator, PostRepository $postRepository): Response
     {
         $data = $postRepository->findBy([],['createdAt' => 'desc']);
+
+        //we use the paginator bundle to be able to have maximum 12 posts on page and generate other pages
         $posts = $paginator->paginate($data, $request->query->getInt('page', 1), 12);
         return $this->render('posts/posts.html.twig', [
             'posts' => $posts,
@@ -35,13 +37,17 @@ class PostsController extends AbstractController
      */
     public function showPost(Request $request, Post $post, EntityManagerInterface $manager) : Response
     {
-
+        //if the user is connected we get it
         $user = $this->getUser();
 
+        //then we handle the request form the comment type form present in the post page
         $form = $this->createForm(CommentType::class);
         $form->handleRequest($request);
 
+        // if it's submitted and valid
         if ($form->isSubmitted() && $form->isValid()) {
+
+            //we initiate a new comment object and hydrates it with content.
             $comment = new Comment();
             $content = $form->get('content')->getData();
             $comment->setAuthor($user)
@@ -49,9 +55,11 @@ class PostsController extends AbstractController
             ->setContent($content)
             ->setCreatedAt(new DateTime('now'));
 
+            //it is then persisted and flushed into database using entity interface manager
             $manager->persist($comment);
             $manager->flush();
 
+            //we render a success message and redirect to the same page for the new comment to be visible.
             $this->addFlash('message', 'This comment has been posted');
             return $this->redirectToRoute('show_post',['id' => $post->getId()]);
         }
@@ -67,8 +75,11 @@ class PostsController extends AbstractController
      */
     public function like(Post $post, PostLikeRepository $postLikeRepository, EntityManagerInterface $manager):Response
     {
+
+        //if the user is connected we get it.
         $user = $this->getUser();
 
+        //if there is no user logged in we return a json that will be caught by javascript on front and display an error message
         if(!$user){
             return $this->json([
                 'code' => 403,
@@ -76,19 +87,31 @@ class PostsController extends AbstractController
             ],403);
         };
 
+        //we use this isLikedByuser method to define if it's already been liked
         if($post->isLikedByUser($user)){
+
+            //the post and the user are used to catch the like property
             $like = $postLikeRepository->findOneBy([
                 'post' => $post,
                 'user' => $user
             ]);
+
+            //if we are in this loop it means that the post is already liked 
+            //so, as this method is called whenever the like button on front is clicked
+            //the like is removed from the article
             $manager->remove($like);
             $manager->flush();
+
+            //we return json response for the front end to catch it in javascript
             return $this->json([
                 'code' => 200,
                 'message' => "like deleted",
                 'Likes' => $postLikeRepository->count(['post' => $post])
             ],200);
         } else {
+
+            //if we are in this part of the loop it means that the post was not already liked
+            //so we do the opposite , we set a new like.
             $like = new PostLike();
             $like->setPost($post)
                  ->setUser($user);
@@ -96,6 +119,8 @@ class PostsController extends AbstractController
             $manager->persist($like);
             $manager->flush();
         }
+        
+        //we return json response for the front end to catch it in javascript
         return $this->json([
             'code' => 200,
             'message' => "like posted",

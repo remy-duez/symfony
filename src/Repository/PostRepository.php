@@ -33,8 +33,13 @@ class PostRepository extends ServiceEntityRepository
         ;
     }
 
-    public function findMostLiked()
+    /**
+     * @return Post[] Returns an array of Post objects
+     */
+    public function findFourMostLiked()
     {
+
+        //here we want to count likes in the article and be able to get the 4 most liked
         return $this->createQueryBuilder('p')
         ->select('count(l) AS HIDDEN nbrLikes', 'p')
         ->leftJoin('p.likes', 'l')
