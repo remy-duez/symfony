@@ -41,6 +41,8 @@ class PostRepository extends ServiceEntityRepository
 
         //here we want to count likes in the article and be able to get the 4 most liked
         return $this->createQueryBuilder('p')
+
+        // here we added AS HIDDEN because only want to return the posts not the number of likes.
         ->select('count(l) AS HIDDEN nbrLikes', 'p')
         ->leftJoin('p.likes', 'l')
         ->orderBy('nbrLikes', 'DESC')
