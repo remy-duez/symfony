@@ -38,5 +38,5 @@ class PostCrudController extends AbstractCrudController
         ->setDefaultSort(['createdAt' => 'DESC'])
         ->setSearchFields(['title', 'content']);
     }
-    
+
 }

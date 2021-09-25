@@ -4,8 +4,9 @@
 
 {% block body %}
 {% for message in app.flashes('message') %}
-    <div class="alert alert-success alert-dismissible">{{message}}</div>
-    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    <div class="alert alert-success alert-dismissible">{{message}}
+    <button type="button" class="btn-close" data-bs-dismiss="alert"></button></div>
+    
 {% endfor %}
     <div class="container-fluid col-md-6 mb-3">
         <article class="card border-dark">
